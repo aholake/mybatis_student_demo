@@ -68,17 +68,11 @@ public class HomeController {
 			return false;
 		}
 	}
-	
-	@RequestMapping(value = "/addStudent", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/addStudent", method = RequestMethod.POST)
 	public @ResponseBody int addStudent(@RequestBody Student student) {
-		try {
-			int id = studentService.insertStudent(student);
-			return id;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return -1;
-		}
-		
+		studentService.insertStudent(student);
+		return student.getId();
 	}
 
 	@RequestMapping(value = "/deleteStudent/{id}", method = RequestMethod.DELETE)

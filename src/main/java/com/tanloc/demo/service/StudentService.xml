@@ -18,8 +18,10 @@
 	<insert id="insertStudent" useGeneratedKeys="true" keyProperty="id"
 		keyColumn="id" parameterType="student">
 		INSERT INTO student (firstName, lastName, dateOfBirth, score) VALUES
-		(#{firstName}, #{lastName}, #{dateOfBirth}, #{score});
-		<selectKey resultType="int" keyProperty="id" order="BEFORE"></selectKey>
+		(#{firstName}, #{lastName}, #{dateOfBirth}, #{score})
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
 	</insert>
 
 	<update id="updateStudent" parameterType="student">
@@ -27,7 +29,8 @@
 		SET
 		firstName = #{firstName},
 		lastName = #{lastName},
-		dateOfBirth = #{dateOfBirth},
+		dateOfBirth =
+		#{dateOfBirth},
 		score = #{score}
 		WHERE
 		id = #{id};
